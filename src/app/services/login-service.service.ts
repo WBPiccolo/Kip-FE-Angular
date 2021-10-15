@@ -11,7 +11,10 @@ export class LoginService {
   //END MOCK
   //Questi metodi dovrebbero fare una semplice chiamata HTTP, per ora è tutto mockato
 
-  constructor() {}
+  constructor() {
+    const defaultUser: User = new User('test@gmail.com', 'encryptMe');
+    this.users.push(defaultUser);
+  }
 
   register(email: string, password: string) {
     //TODO: encrypt password with key = email

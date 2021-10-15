@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login-service.service';
+import { MemoService } from 'src/app/services/memo.service';
+import { LoginService } from '../../services/login-service.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,11 @@ import { LoginService } from '../services/login-service.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   statusMessage: string = '';
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private memoService: MemoService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -46,6 +51,7 @@ export class LoginComponent implements OnInit {
       if (res.status === 'OK') {
         console.log(res.value);
         this.statusMessage = 'Login avvenuto con successo';
+        this.memoService.userID = res.value;
         this.router.navigate(['home']);
       }
     });
